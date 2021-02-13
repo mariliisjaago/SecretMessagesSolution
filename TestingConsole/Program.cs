@@ -6,6 +6,7 @@ using SecretMessages_Library.Models;
 using SecretMessages_Library.Routines;
 using SecretMessages_Library.Services;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace TestingConsole
@@ -21,7 +22,7 @@ namespace TestingConsole
             LoginRoutine loginRoutine = new LoginRoutine(userService);
 
 
-            Console.WriteLine("Sending a message");
+            Console.WriteLine("Reading a message");
             //Console.Write("username: ");
             //string userName = Console.ReadLine();
 
@@ -36,15 +37,23 @@ namespace TestingConsole
             //Console.ReadLine();
 
 
-            MessageRoutine messageRoutine = new MessageRoutine(messageService, userService, 1);
+            MessageRoutine messageRoutine = new MessageRoutine(messageService, userService, 2);
 
-            MessageModel message = new MessageModel()
+            //MessageModel message = new MessageModel()
+            //{
+            //    Message = "This is the first message.",
+            //    FromUserId = 1
+            //};
+
+            //messageRoutine.SendMessage(message, "juusvali");
+
+            List<MessageFullModel> newMessages = messageRoutine.GetNewMessages();
+
+            foreach (var item in newMessages)
             {
-                Message = "This is the first message.",
-                FromUserId = 1
-            };
-
-            messageRoutine.SendMessage(message, "juusvali");
+                Console.WriteLine($"To: { item.ToUserId }, from: { item.UserName }");
+                Console.WriteLine(item.Message);
+            }
 
         }
 

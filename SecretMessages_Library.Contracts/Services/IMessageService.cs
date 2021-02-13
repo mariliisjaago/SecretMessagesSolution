@@ -5,7 +5,8 @@ namespace SecretMessages_Library.Services
 {
     public interface IMessageService
     {
-        List<MessageModel> GetMessagesByUserId(int userId);
+        List<MessageFullModel> GetUnreadMessagesByUserId(int userId);
         void InsertMessageToDatabase(MessageModel message);
+        void MarkMessagesAsRead(List<MessageFullModel> newMessages);
     }
 }

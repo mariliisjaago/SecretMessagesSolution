@@ -1,5 +1,6 @@
 ﻿using SecretMessages_Library.Models;
 using SecretMessages_Library.Services;
+using System.Collections.Generic;
 
 namespace SecretMessages_Library.Routines
 {
@@ -32,6 +33,15 @@ namespace SecretMessages_Library.Routines
             {
                 return false;
             }
+        }
+
+        public List<MessageFullModel> GetNewMessages()
+        {
+            List<MessageFullModel> newMessages = _messageService.GetUnreadMessagesByUserId(_userId);
+
+            _messageService.MarkMessagesAsRead(newMessages);
+
+            return newMessages;
         }
 
         private MessageModel AddToUserIdToMessage(int toUserId, MessageModel message)

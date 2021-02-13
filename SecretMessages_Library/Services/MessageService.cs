@@ -23,9 +23,28 @@ namespace SecretMessages_Library.Services
             _db.SaveData<dynamic>(sql, new { message.Message, message.FromUserId, message.ToUserId, message.IsRead }, connectionStringName);
         }
 
-        public List<MessageModel> GetMessagesByUserId(int userId)
+        public List<MessageFullModel> GetUnreadMessagesByUserId(int userId)
         {
-            return new List<MessageModel>();
+            string sql = "select m.*, u.UserName from Messages m " +
+                "left join Users u on m.FromUserId = u.Id " +
+                "where ToUserId = @ToUserId and IsRead = 0;";
+
+            List<MessageFullModel> unreadMessages = _db.LoadData<MessageFullModel, dynamic>(sql,
+                new { ToUserId = userId }, connectionStringName);
+
+            return unreadMessages;
+        }
+
+        public void MarkMessagesAsRead(List<MessageFullModel> newMessages)
+        {
+            string sql = "update Messages " +
+                "set IsRead = 1 " +
+                "where Id = @Id;";
+
+            foreach (var item in newMessages)
+            {
+                _db.SaveData<dynamic>(sql, new { Id = item.Id }, connectionStringName);
+            }
         }
 
     }
