@@ -3,6 +3,16 @@
 @{
 }
 
-<h3>Signing up was successful</h3>
 
-<p>Redirecting you to home page.</p>
+@{ 
+    if (Model.WasSignupSuccessful == true)
+    {
+        <p>Successfully created account!</p>
+        <a asp-page="/Index">Go to login page</a>
+    }
+    else
+    {
+        <p>That username is unavailable!</p>
+        <a asp-page="/SignUp">Try again</a>
+    }
+}
