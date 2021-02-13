@@ -1,0 +1,16 @@
+﻿@page
+@model SecretMessagesWeb.Pages.MessageSentModel
+@{
+}
+
+<h2>Result of sending message:</h2>
+
+@{ if (Model.MessageWasSent == true)
+    {
+        <p>Message was successfully sent.</p>
+    }
+    else
+    {
+        <p>Can't find that user, sorry!</p>
+    }
+}

@@ -1,0 +1,19 @@
+﻿@page
+@model SecretMessagesWeb.Pages.SendMessageModel
+@{
+}
+
+<h2>Send a new message:</h2>
+
+<form method="post" asp-page="/MessageSent">
+    <div class="form-group">
+        <label asp-for="ToUserName"></label>
+        <input type="text" asp-for="ToUserName" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Message"></label>
+        <input type="text" asp-for="Message" />
+    </div>
+    <input type="hidden" name="UserId" value="@Model.UserId" />
+    <button type="submit" class="btn btn-primary">Send</button>
+</form>
