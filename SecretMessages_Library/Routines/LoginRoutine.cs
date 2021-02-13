@@ -16,7 +16,7 @@ namespace SecretMessages_Library.Routines
             return _userService.CreateUser(userName, password);
         }
 
-        public bool SignIn(string userName, string password)
+        public (bool, int) SignIn(string userName, string password)
         {
             return _userService.ConfirmUser(userName, password);
         }

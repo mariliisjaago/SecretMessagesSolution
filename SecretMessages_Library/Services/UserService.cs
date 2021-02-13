@@ -1,6 +1,7 @@
 ﻿using SecretMessages_Library.Contracts.DataAccess;
 using SecretMessages_Library.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SecretMessages_Library.Services
 {
@@ -32,7 +33,7 @@ namespace SecretMessages_Library.Services
             }
         }
 
-        public bool ConfirmUser(string userName, string password)
+        public (bool, int) ConfirmUser(string userName, string password)
         {
             string sql = "select * from Users where UserName = @UserName and Password = @Password;";
 
@@ -41,11 +42,27 @@ namespace SecretMessages_Library.Services
                                                                             connectionStringName);
             if (matchingUsers.Count > 0)
             {
-                return true;
+                return (true, matchingUsers.First().Id);
             }
             else
             {
-                return false;
+                return (false, -1);
+            }
+        }
+
+        public (bool, int) GetUserIdByUserName(string toUserName)
+        {
+            string sql = "select * from Users where UserName = @UserName;";
+
+            var users = _db.LoadData<UserModel, dynamic>(sql, new { UserName = toUserName }, connectionStringName);
+
+            if (users.Count > 0)
+            {
+                return (true, users.First().Id);
+            }
+            else
+            {
+                return (false, -1);
             }
         }
 
