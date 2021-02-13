@@ -17,6 +17,9 @@ namespace SecretMessagesWeb.Pages
         [BindProperty]
         public string Password { get; set; }
 
+        [BindProperty]
+        public bool FailedLoginResult { get; set; } = false;
+
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;

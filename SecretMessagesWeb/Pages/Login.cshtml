@@ -3,4 +3,14 @@
 @{
 }
 
-<h2>Login page</h2>
+<div class="text-center">
+    <h2>Login page</h2>
+    <br />
+    <h3>Hello, @Model.UserName!</h3>
+    <br />
+    
+    <form method="post" asp-page="/ReadMessages">
+        <input type="hidden" name="UserId" value="@Model.UserId" />
+        <button type="submit" class="btn btn-primary">Read new messages</button>
+    </form>
+</div>

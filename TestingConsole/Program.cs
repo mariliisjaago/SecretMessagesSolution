@@ -37,7 +37,7 @@ namespace TestingConsole
             //Console.ReadLine();
 
 
-            MessageRoutine messageRoutine = new MessageRoutine(messageService, userService, 2);
+            MessageRoutine messageRoutine = new MessageRoutine(messageService, userService);
 
             //MessageModel message = new MessageModel()
             //{
@@ -47,7 +47,7 @@ namespace TestingConsole
 
             //messageRoutine.SendMessage(message, "juusvali");
 
-            List<MessageFullModel> newMessages = messageRoutine.GetNewMessages();
+            List<MessageFullModel> newMessages = messageRoutine.GetNewMessages(2);
 
             foreach (var item in newMessages)
             {

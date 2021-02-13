@@ -1,0 +1,11 @@
+﻿@page
+@model SecretMessagesWeb.Pages.ReadMessagesModel
+@{
+}
+
+<h2>Your unread messages:</h2>
+
+@{ foreach (var item in Model.NewMessages)
+    {
+        <p>@item.Message</p>
+    }}
