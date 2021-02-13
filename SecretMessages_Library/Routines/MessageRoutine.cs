@@ -10,11 +10,10 @@ namespace SecretMessages_Library.Routines
         private readonly IUserService _userService;
         private readonly int _userId;
 
-        public MessageRoutine(IMessageService messageService, IUserService userService, int userId)
+        public MessageRoutine(IMessageService messageService, IUserService userService)
         {
             _messageService = messageService;
             _userService = userService;
-            _userId = userId;
         }
 
         public bool SendMessage(MessageModel message, string toUserName)
@@ -35,9 +34,9 @@ namespace SecretMessages_Library.Routines
             }
         }
 
-        public List<MessageFullModel> GetNewMessages()
+        public List<MessageFullModel> GetNewMessages(int userId)
         {
-            List<MessageFullModel> newMessages = _messageService.GetUnreadMessagesByUserId(_userId);
+            List<MessageFullModel> newMessages = _messageService.GetUnreadMessagesByUserId(userId);
 
             _messageService.MarkMessagesAsRead(newMessages);
 

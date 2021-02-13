@@ -5,7 +5,7 @@ namespace SecretMessages_Library.Routines
 {
     public interface IMessageRoutine
     {
-        List<MessageFullModel> GetNewMessages();
+        List<MessageFullModel> GetNewMessages(int userId);
         bool SendMessage(MessageModel message, string toUserName);
     }
 }
