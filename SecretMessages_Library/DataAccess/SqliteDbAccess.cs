@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using SecretMessages_Library.Contracts.DataAccess;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
@@ -7,7 +8,7 @@ using System.Linq;
 
 namespace SecretMessages_Library.DataAccess
 {
-    public class SqliteDbAccess : ISqliteDbAccess
+    public class SqliteDbAccess : ISqlDbAccess
     {
         private readonly IConfiguration _config;
 
