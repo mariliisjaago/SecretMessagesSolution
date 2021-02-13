@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SecretMessages_Library.Routines
 {
-    public class MessageRoutine
+    public class MessageRoutine : IMessageRoutine
     {
         private readonly IMessageService _messageService;
         private readonly IUserService _userService;

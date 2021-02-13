@@ -2,7 +2,7 @@
 
 namespace SecretMessages_Library.Routines
 {
-    public class LoginRoutine
+    public class LoginRoutine : ILoginRoutine
     {
         private readonly IUserService _userService;
 
