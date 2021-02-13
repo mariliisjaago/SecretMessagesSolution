@@ -3,9 +3,22 @@
 @{
 }
 
-<h2>Your unread messages:</h2>
+<h3>Your unread messages:</h3>
 
-@{ foreach (var item in Model.NewMessages)
+@{
+    if (Model.NewMessages.Count > 0)
     {
-        <p>@item.Message</p>
-    }}
+        foreach (var item in Model.NewMessages)
+        {
+            <p><strong>From: </strong>@item.UserName</p>
+            <p><strong>Message: </strong>@item.Message</p>
+            <br />
+        }
+    }
+    else
+    {
+        <p>No new messages.</p>
+    }
+}
+
+<a asp-page="/Login" asp-route-UserId="@Model.UserId">Back to main menu</a>

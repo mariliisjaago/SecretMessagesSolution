@@ -30,6 +30,7 @@ namespace SecretMessagesWeb
 
             services.AddScoped<ILoginRoutine, LoginRoutine>();
             services.AddScoped<IMessageRoutine, MessageRoutine>();
+            services.AddScoped<ILookupRoutine, LookupRoutine>();
 
         }
 

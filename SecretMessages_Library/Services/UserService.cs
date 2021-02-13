@@ -66,6 +66,15 @@ namespace SecretMessages_Library.Services
             }
         }
 
+        public string GetUserNameById(int userId)
+        {
+            string sql = "select UserName from Users where Id = @Id;";
+
+            string userName = _db.LoadData<UserModel, dynamic>(sql, new { Id = userId }, connectionStringName).First().UserName;
+
+            return userName;
+        }
+
         private bool IsUserNameAvailable(string userName)
         {
             string sql = "select * from Users u where u.UserName = @UserName";
