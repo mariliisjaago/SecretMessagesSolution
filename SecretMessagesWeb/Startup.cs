@@ -4,9 +4,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SecretMessages_Library.Contracts.DataAccess;
+using SecretMessages_Library.Contracts.Utilities;
 using SecretMessages_Library.DataAccess;
 using SecretMessages_Library.Routines;
 using SecretMessages_Library.Services;
+using SecretMessages_Library.Utilities;
 
 namespace SecretMessagesWeb
 {
@@ -27,6 +29,8 @@ namespace SecretMessagesWeb
             services.AddScoped<ISqlDbAccess, SqliteDbAccess>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMessageService, MessageService>();
+
+            services.AddScoped<IUserInputValidator, UserInputValidator>();
 
             services.AddScoped<ILoginRoutine, LoginRoutine>();
             services.AddScoped<IMessageRoutine, MessageRoutine>();

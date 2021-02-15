@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace SecretMessagesWeb.Pages
 {
+    [BindProperties]
     public class SignUpModel : PageModel
     {
-        [BindProperty]
         public string UserName { get; set; }
-        [BindProperty]
+        
         public string Password { get; set; }
+
+        public string PasswordAgain { get; set; }
 
         public void OnGet()
         {

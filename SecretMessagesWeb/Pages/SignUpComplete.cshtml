@@ -12,7 +12,7 @@
     }
     else
     {
-        <p>That username is unavailable!</p>
+        <p>@Model.ErrorMessage</p>
         <a asp-page="/SignUp">Try again</a>
     }
 }

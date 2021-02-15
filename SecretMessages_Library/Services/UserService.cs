@@ -33,7 +33,7 @@ namespace SecretMessages_Library.Services
             }
         }
 
-        public (bool, int) ConfirmUser(string userName, string password)
+        public (bool, int) ConfirmUserAndPassword(string userName, string password)
         {
             string sql = "select * from Users where UserName = @UserName and Password = @Password;";
 
