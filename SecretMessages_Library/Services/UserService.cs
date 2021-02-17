@@ -53,21 +53,29 @@ namespace SecretMessages_Library.Services
             {
                 UserModel user = matchingUsers.First();
 
-                string hashedPassword = _pwCrypto.HashPassword(password, user.Salt);
+                (bool, int) result = ConfirmPasswordHashAndReturnUserId(user, password);
 
-                if (hashedPassword == user.HashedPassword)
-                {
-                    return (true, user.Id);
-                }
-                else
-                {
-                    return (false, -1);
-                }
+                return result;
             }
             else
             {
                 return (false, -1);
             }
+        }
+
+        private (bool, int) ConfirmPasswordHashAndReturnUserId(UserModel user, string password)
+        {
+            string hashedPassword = _pwCrypto.HashPassword(password, user.Salt);
+
+            if (hashedPassword == user.HashedPassword)
+            {
+                return (true, user.Id);
+            }
+            else
+            {
+                return (false, -1);
+            }
+
         }
 
         public (bool, int) GetUserIdByUserName(string toUserName)

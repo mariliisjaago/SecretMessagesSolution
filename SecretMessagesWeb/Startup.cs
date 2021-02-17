@@ -31,6 +31,7 @@ namespace SecretMessagesWeb
             services.AddScoped<IMessageService, MessageService>();
 
             services.AddScoped<IUserInputValidator, UserInputValidator>();
+            services.AddScoped<IPasswordCrypto, PasswordCrypto>();
 
             services.AddScoped<ILoginRoutine, LoginRoutine>();
             services.AddScoped<IMessageRoutine, MessageRoutine>();

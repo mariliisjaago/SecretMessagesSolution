@@ -5,7 +5,6 @@ using SecretMessages_Library.DataAccess;
 using SecretMessages_Library.Routines;
 using SecretMessages_Library.Services;
 using SecretMessages_Library.Utilities;
-using System;
 using System.IO;
 
 namespace TestingConsole
@@ -23,16 +22,16 @@ namespace TestingConsole
             LoginRoutine loginRoutine = new LoginRoutine(userService, validator);
 
 
-            Console.WriteLine("Logging in");
-            Console.Write("username: ");
-            string userName = Console.ReadLine();
+            //Console.WriteLine("Logging in");
+            //Console.Write("username: ");
+            //string userName = Console.ReadLine();
 
-            Console.Write("Your password: ");
-            string password = Console.ReadLine();
+            //Console.Write("Your password: ");
+            //string password = Console.ReadLine();
 
-            (bool, int) confirmed = loginRoutine.SignIn(userName, password);
+            //(bool, int) confirmed = loginRoutine.SignIn(userName, password);
 
-            Console.WriteLine(confirmed.Item1);
+            //Console.WriteLine(confirmed.Item1);
 
             ////(bool, int) confirmed = userService.GetUserIdByUserName(userName);
 
@@ -58,7 +57,7 @@ namespace TestingConsole
             //    Console.WriteLine(item.Message);
             //}
 
-            
+
 
         }
 
