@@ -4,5 +4,6 @@
     {
         (bool, int) SignIn(string userName, string password);
         bool SignUp(string userName, string password);
+        bool ValidatePassword(string password, string passwordAgain);
     }
 }

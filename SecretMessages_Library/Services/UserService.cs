@@ -1,5 +1,6 @@
 ﻿using SecretMessages_Library.Contracts.DataAccess;
 using SecretMessages_Library.Models;
+using SecretMessages_Library.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,22 +9,30 @@ namespace SecretMessages_Library.Services
     public class UserService : IUserService
     {
         private readonly ISqlDbAccess _db;
+        private readonly IPasswordCrypto _pwCrypto;
         private readonly string connectionStringName = "SqliteDb";
 
-        public UserService(ISqlDbAccess db)
+        public UserService(ISqlDbAccess db, IPasswordCrypto pwCrypto)
         {
             _db = db;
+            _pwCrypto = pwCrypto;
         }
 
         public bool CreateUser(string userName, string password)
         {
             bool userNameIsAvailable = IsUserNameAvailable(userName);
 
+            string salt = _pwCrypto.CreateSalt();
+
+            string hashedPassword = _pwCrypto.HashPassword(password, salt);
+
             if (userNameIsAvailable)
             {
-                string sql = "insert into Users (UserName, Password) values (@UserName, @Password);";
+                string sql = "insert into Users (UserName, Salt, HashedPassword) values (@UserName, @Salt, @HashedPassword);";
 
-                _db.SaveData<dynamic>(sql, new { UserName = userName, Password = password }, connectionStringName);
+                _db.SaveData<dynamic>(sql,
+                    new { UserName = userName, Salt = salt, HashedPassword = hashedPassword },
+                    connectionStringName);
 
                 return true;
             }
@@ -33,21 +42,40 @@ namespace SecretMessages_Library.Services
             }
         }
 
-        public (bool, int) ConfirmUser(string userName, string password)
+        public (bool, int) ConfirmUserAndPassword(string userName, string password)
         {
-            string sql = "select * from Users where UserName = @UserName and Password = @Password;";
+            string sql = "select * from Users where UserName = @UserName";
 
             List<UserModel> matchingUsers = _db.LoadData<UserModel, dynamic>(sql,
-                                                                            new { UserName = userName, Password = password },
+                                                                            new { UserName = userName },
                                                                             connectionStringName);
             if (matchingUsers.Count > 0)
             {
-                return (true, matchingUsers.First().Id);
+                UserModel user = matchingUsers.First();
+
+                (bool, int) result = ConfirmPasswordHashAndReturnUserId(user, password);
+
+                return result;
             }
             else
             {
                 return (false, -1);
             }
+        }
+
+        private (bool, int) ConfirmPasswordHashAndReturnUserId(UserModel user, string password)
+        {
+            string hashedPassword = _pwCrypto.HashPassword(password, user.Salt);
+
+            if (hashedPassword == user.HashedPassword)
+            {
+                return (true, user.Id);
+            }
+            else
+            {
+                return (false, -1);
+            }
+
         }
 
         public (bool, int) GetUserIdByUserName(string toUserName)

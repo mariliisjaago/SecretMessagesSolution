@@ -7,12 +7,14 @@
 
 <form method="post" asp-page="/MessageSent">
     <div class="form-group">
-        <label asp-for="ToUserName"></label>
-        <input type="text" asp-for="ToUserName" />
+        <label asp-for="ToUserName">To: </label>
+        <br />
+        <input type="text" asp-for="ToUserName" width="200" />
     </div>
     <div class="form-group">
-        <label asp-for="Message"></label>
-        <input type="text" asp-for="Message" />
+        <label asp-for="Message">Message: </label>
+        <br />
+        <textarea asp-for="Message" rows="3"></textarea>
     </div>
     <input type="hidden" name="UserId" value="@Model.UserId" />
     <button type="submit" class="btn btn-primary">Send</button>
