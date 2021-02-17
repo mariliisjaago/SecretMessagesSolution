@@ -5,6 +5,7 @@ using SecretMessages_Library.DataAccess;
 using SecretMessages_Library.Models;
 using SecretMessages_Library.Routines;
 using SecretMessages_Library.Services;
+using SecretMessages_Library.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,10 +20,10 @@ namespace TestingConsole
             ISqlDbAccess db = new SqliteDbAccess(config);
             UserService userService = new UserService(db);
             MessageService messageService = new MessageService(db);
-            LoginRoutine loginRoutine = new LoginRoutine(userService);
+            //LoginRoutine loginRoutine = new LoginRoutine(userService);
 
 
-            Console.WriteLine("Reading a message");
+            //Console.WriteLine("Reading a message");
             //Console.Write("username: ");
             //string userName = Console.ReadLine();
 
@@ -37,23 +38,31 @@ namespace TestingConsole
             //Console.ReadLine();
 
 
-            MessageRoutine messageRoutine = new MessageRoutine(messageService, userService);
+            //MessageRoutine messageRoutine = new MessageRoutine(messageService, userService);
 
-            //MessageModel message = new MessageModel()
+            ////MessageModel message = new MessageModel()
+            ////{
+            ////    Message = "This is the first message.",
+            ////    FromUserId = 1
+            ////};
+
+            ////messageRoutine.SendMessage(message, "juusvali");
+
+            //List<MessageFullModel> newMessages = messageRoutine.GetNewMessages(2);
+
+            //foreach (var item in newMessages)
             //{
-            //    Message = "This is the first message.",
-            //    FromUserId = 1
-            //};
+            //    Console.WriteLine($"To: { item.ToUserId }, from: { item.UserName }");
+            //    Console.WriteLine(item.Message);
+            //}
 
-            //messageRoutine.SendMessage(message, "juusvali");
+            string salt = PasswordCrypto.CreateSaltUsingNowTime();
 
-            List<MessageFullModel> newMessages = messageRoutine.GetNewMessages(2);
+            Console.WriteLine(salt);
 
-            foreach (var item in newMessages)
-            {
-                Console.WriteLine($"To: { item.ToUserId }, from: { item.UserName }");
-                Console.WriteLine(item.Message);
-            }
+            string hashedPassword = PasswordCrypto.SaltAndHashPassword("kiisud", salt);
+
+            Console.WriteLine(hashedPassword);
 
         }
 
