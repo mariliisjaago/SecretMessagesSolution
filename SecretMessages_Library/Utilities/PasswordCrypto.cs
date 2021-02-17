@@ -1,34 +1,52 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace SecretMessages_Library.Utilities
 {
-    public static class PasswordCrypto
+    public class PasswordCrypto
     {
-        public static string CreateSaltUsingNowTime()
+        public string CreateSaltUsingNowTime()
         {
             int milliseconds = DateTime.Now.Millisecond;
 
             return milliseconds.ToString();
         }
 
-        public static string SaltAndHashPassword(string password, string salt)
+        public string SaltAndHashPassword(string password, string salt)
         {
             SHA384 shaM = new SHA384Managed();
 
-            string saltedPassword = password + salt;
+            string saltedPassword = SaltPassword(password, salt);
 
-            byte[] saltedPasswordBytes = Encoding.ASCII.GetBytes(saltedPassword);
+            byte[] saltedPasswordBytes = GetBytesFromASCIIString(saltedPassword);
 
             byte[] hashedPasswordBytes = shaM.ComputeHash(saltedPasswordBytes);
 
-            string hashedPassword = Convert.ToBase64String(hashedPasswordBytes);
+            string hashedPassword = GetStringFromBytes(hashedPasswordBytes);
 
             return hashedPassword;
         }
 
-        
+        private string GetStringFromBytes(byte[] bytes)
+        {
+            string output = Convert.ToBase64String(bytes);
+
+            return output;
+        }
+
+        private byte[] GetBytesFromASCIIString(string inputString)
+        {
+            byte[] bytes = Encoding.ASCII.GetBytes(inputString);
+
+            return bytes;
+        }
+
+        private string SaltPassword(string password, string salt)
+        {
+            string saltedPassword = password + salt;
+
+            return saltedPassword;
+        }
     }
 }

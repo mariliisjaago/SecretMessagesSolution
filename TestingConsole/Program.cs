@@ -21,6 +21,7 @@ namespace TestingConsole
             UserService userService = new UserService(db);
             MessageService messageService = new MessageService(db);
             //LoginRoutine loginRoutine = new LoginRoutine(userService);
+            PasswordCrypto pwc = new PasswordCrypto();
 
 
             //Console.WriteLine("Reading a message");
@@ -56,11 +57,11 @@ namespace TestingConsole
             //    Console.WriteLine(item.Message);
             //}
 
-            string salt = PasswordCrypto.CreateSaltUsingNowTime();
+            string salt = pwc.CreateSaltUsingNowTime();
 
             Console.WriteLine(salt);
 
-            string hashedPassword = PasswordCrypto.SaltAndHashPassword("kiisud", salt);
+            string hashedPassword = pwc.SaltAndHashPassword("kiisud", salt);
 
             Console.WriteLine(hashedPassword);
 
