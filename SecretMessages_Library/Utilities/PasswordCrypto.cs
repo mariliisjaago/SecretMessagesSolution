@@ -4,16 +4,16 @@ using System.Text;
 
 namespace SecretMessages_Library.Utilities
 {
-    public class PasswordCrypto
+    public class PasswordCrypto : IPasswordCrypto
     {
-        public string CreateSaltUsingNowTime()
+        public string CreateSalt()
         {
             int milliseconds = DateTime.Now.Millisecond;
 
             return milliseconds.ToString();
         }
 
-        public string SaltAndHashPassword(string password, string salt)
+        public string HashPassword(string password, string salt)
         {
             SHA384 shaM = new SHA384Managed();
 
