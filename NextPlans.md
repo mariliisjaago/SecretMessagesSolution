@@ -2,7 +2,7 @@
 
 1. ~~Textarea for the message~~
 2. ~~Password hashing~~
-3. Session storage
+3. Session storage (and logging out)
 4. ~~Input type = password~~
 5. ~~Validating password (by double entry)~~
 6. Nicer design of displaying the unread messages
