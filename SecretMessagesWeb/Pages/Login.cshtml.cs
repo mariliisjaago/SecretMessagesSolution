@@ -1,23 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SecretMessages_Library.Routines;
 
 namespace SecretMessagesWeb.Pages
 {
+    [BindProperties]
     public class LoginModel : PageModel
     {
         private readonly ILoginRoutine _loginRoutine;
 
-        [BindProperty]
         public string UserName { get; set; }
-        [BindProperty]
+
         public string Password { get; set; }
 
-        [BindProperty]
         public int UserId { get; set; }
 
 
@@ -28,7 +24,10 @@ namespace SecretMessagesWeb.Pages
 
         public void OnGet()
         {
-
+            if (HttpContext.Session.GetInt32("UserName") == null)
+            {
+                RedirectToPage("/Index");
+            }
         }
 
         public IActionResult OnPost()
@@ -37,9 +36,10 @@ namespace SecretMessagesWeb.Pages
 
             if (loginResult.Item1 == true)
             {
-                UserId = loginResult.Item2;
+                HttpContext.Session.SetInt32("UserId", loginResult.Item2);
+                HttpContext.Session.SetString("UserName", UserName);
 
-                return Page();
+                return RedirectToPage("UserDashboard");
             }
             else
             {

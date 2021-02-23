@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SecretMessages_Library.Models;
@@ -28,17 +29,20 @@ namespace SecretMessagesWeb.Pages
 
         public void OnGet()
         {
+            if (HttpContext.Session.GetInt32("UserId") != null)
+            {
+                UserId = (int)HttpContext.Session.GetInt32("UserId");
+            }
+            else
+            {
+                RedirectToPage("/Index");
+            }
+
+            NewMessages = _messageRoutine.GetNewMessages(UserId);
         }
 
         public IActionResult OnPost()
         {
-            NewMessages = _messageRoutine.GetNewMessages(UserId);
-
-            if (UserName == null)
-            {
-                UserName = _lookupRoutine.GetUserNameById(UserId);
-            }
-
             return Page();
         }
     }

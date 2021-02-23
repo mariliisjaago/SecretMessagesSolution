@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SecretMessages_Library.Models;
@@ -27,7 +24,10 @@ namespace SecretMessagesWeb.Pages
 
         public void OnGet()
         {
-
+            if (HttpContext.Session.GetInt32("UserId") == null)
+            {
+                RedirectToPage("/Index");
+            }
         }
 
         public IActionResult OnPost()
@@ -37,7 +37,7 @@ namespace SecretMessagesWeb.Pages
                 FromUserId = UserId,
                 Message = Message
             };
-            
+
             MessageWasSent = _messageRoutine.SendMessage(message, ToUserName);
 
             return Page();
