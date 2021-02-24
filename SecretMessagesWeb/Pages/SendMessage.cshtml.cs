@@ -18,6 +18,8 @@ namespace SecretMessagesWeb.Pages
         public string ToUserName { get; set; }
         public string Message { get; set; }
 
+        public string UserName { get; set; }
+
 
         public SendMessageModel(IMessageRoutine messageRoutine)
         {
@@ -28,6 +30,7 @@ namespace SecretMessagesWeb.Pages
             if (HttpContext.Session.GetInt32("UserId") != null)
             {
                 UserId = (int)HttpContext.Session.GetInt32("UserId");
+                UserName = HttpContext.Session.GetString("UserName");
             }
             else
             {
