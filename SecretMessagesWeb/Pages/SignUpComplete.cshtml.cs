@@ -39,7 +39,7 @@ namespace SecretMessagesWeb.Pages
 
                 if (WasSignupSuccessful == false)
                 {
-                    ErrorMessage = "That username is unavailable.";
+                    ErrorMessage = "Signup wasn't successful. Probable cause: that username is unavailable.";
                 }
             }
             else
