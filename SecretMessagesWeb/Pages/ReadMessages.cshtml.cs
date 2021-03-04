@@ -21,6 +21,8 @@ namespace SecretMessagesWeb.Pages
 
         public List<MessageFullModel> NewMessages { get; set; }
 
+        public List<MessageFullModel> OldMessages { get; set; }
+
         public ReadMessagesModel(IMessageRoutine messageRoutine, ILookupRoutine lookupRoutine)
         {
             _messageRoutine = messageRoutine;
@@ -39,6 +41,8 @@ namespace SecretMessagesWeb.Pages
             }
 
             NewMessages = _messageRoutine.GetNewMessages(UserId);
+
+            OldMessages = _messageRoutine.GetOldMessages(UserId);
         }
 
         public IActionResult OnPost()

@@ -47,5 +47,16 @@ namespace SecretMessages_Library.Services
             }
         }
 
+        public List<MessageFullModel> GetOldMessagesByUserId(int userId)
+        {
+            string sql = "select m.*, u.UserName from Messages m " +
+                "left join Users u on m.FromUserId = u.Id " +
+                "where ToUserId = @ToUserId and IsRead = 1;";
+
+            List<MessageFullModel> messages = _db.LoadData<MessageFullModel, dynamic>(sql, new { ToUserId = userId }, connectionStringName);
+
+            return messages;
+        }
+
     }
 }

@@ -43,6 +43,11 @@ namespace SecretMessages_Library.Routines
             return newMessages;
         }
 
+        public List<MessageFullModel> GetOldMessages(int userId)
+        {
+            return _messageService.GetOldMessagesByUserId(userId);
+        }
+
         private MessageModel AddToUserIdToMessage(int toUserId, MessageModel message)
         {
             message.ToUserId = toUserId;

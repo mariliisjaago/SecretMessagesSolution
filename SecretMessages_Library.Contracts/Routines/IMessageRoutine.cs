@@ -7,5 +7,6 @@ namespace SecretMessages_Library.Routines
     {
         List<MessageFullModel> GetNewMessages(int userId);
         bool SendMessage(MessageModel message, string toUserName);
+        List<MessageFullModel> GetOldMessages(int userId);
     }
 }

@@ -8,5 +8,6 @@ namespace SecretMessages_Library.Services
         List<MessageFullModel> GetUnreadMessagesByUserId(int userId);
         void InsertMessageToDatabase(MessageModel message);
         void MarkMessagesAsRead(List<MessageFullModel> newMessages);
+        List<MessageFullModel> GetOldMessagesByUserId(int userId);
     }
 }
