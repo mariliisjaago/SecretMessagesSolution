@@ -16,8 +16,8 @@ namespace TestingConsole
             IConfiguration config = GetConfiguration();
             ISqlDbAccess db = new SqliteDbAccess(config);
             IPasswordCrypto crypto = new PasswordCrypto();
-            UserService userService = new UserService(db, crypto);
-            MessageService messageService = new MessageService(db);
+            SqliteUserService userService = new SqliteUserService(db, crypto);
+            SqliteMessageService messageService = new SqliteMessageService(db);
             UserInputValidator validator = new UserInputValidator();
             LoginRoutine loginRoutine = new LoginRoutine(userService, validator);
 

@@ -4,13 +4,12 @@ using System.Collections.Generic;
 
 namespace SecretMessages_Library.Services
 {
-    public class MessageService : IMessageService
+    public class SqliteMessageService : IMessageService
     {
         private readonly ISqlDbAccess _db;
-        private readonly UserModel _user;
         private readonly string connectionStringName = "SqliteDb";
 
-        public MessageService(ISqlDbAccess db)
+        public SqliteMessageService(ISqlDbAccess db)
         {
             _db = db;
         }
