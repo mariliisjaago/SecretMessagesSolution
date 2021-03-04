@@ -3,21 +3,56 @@
 @{
 }
 
-<h3>Your unread messages:</h3>
+<h2>Your unread messages:</h2>
 
 @{
     if (Model.NewMessages.Count > 0)
     {
-        foreach (var item in Model.NewMessages)
-        {
-            <p><strong>From: </strong>@item.UserName</p>
-            <p><strong>Message: </strong>@item.Message</p>
-            <br />
-        }
+        <table class="table table-striped">
+            <tbody>
+                @foreach (var newMessage in Model.NewMessages)
+                {
+                    <tr>
+                        <td><strong>From: </strong></td>
+                        <td><strong>@newMessage.UserName</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Message: </strong></td>
+                        <td>@newMessage.Message</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     }
     else
     {
         <p>No new messages.</p>
+    }
+}
+<br />
+
+<h2>Old messages:</h2>
+<br />
+
+@{ if (Model.OldMessages.Count > 0)
+    {
+        <table class="table">
+            <tbody>
+                @foreach (var oldMessage in Model.OldMessages)
+                {
+                    <tr>
+                        <td><strong>From: </strong></td>
+                        <td>@oldMessage.UserName</td>
+                        <td><strong>Message:</strong></td>
+                        <td>@oldMessage.Message</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No more messages.</p>
     }
 }
 
